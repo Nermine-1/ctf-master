@@ -41,49 +41,49 @@ const Leaderboard = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">Classement</h1>
+      <h1 className="text-2xl font-bold text-cyan-400 mb-8">Classement</h1>
 
       <div className="card">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-[#00bcd4]/30">
+            <thead>
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-cyan-400 uppercase tracking-wider">
                   Rang
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-cyan-400 uppercase tracking-wider">
                   Utilisateur
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-cyan-400 uppercase tracking-wider">
                   Score
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-cyan-400 uppercase tracking-wider">
                   Challenges résolus
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="divide-y divide-[#00bcd4]/30">
               {leaderboard.map((user, index) => (
-                <tr key={user.id} className={index < 3 ? 'bg-primary-50' : ''}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <tr key={user.id} className={index < 3 ? 'bg-[#00bcd4]/10' : ''}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                     {index + 1}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="h-8 w-8 rounded-full bg-primary-600 flex items-center justify-center text-white">
+                      <div className="h-8 w-8 rounded-full bg-[#00bcd4] flex items-center justify-center text-white">
                         {user.username[0].toUpperCase()}
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-white">
                           {user.username}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                     {user.score} points
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                     {user.solved_challenges}
                   </td>
                 </tr>
@@ -94,7 +94,7 @@ const Leaderboard = () => {
 
         {leaderboard.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">Aucun utilisateur dans le classement</p>
+            <p className="text-white">Aucun utilisateur dans le classement</p>
           </div>
         )}
       </div>
