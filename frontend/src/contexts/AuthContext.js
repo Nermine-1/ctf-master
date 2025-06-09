@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/me`);
       setUser(response.data);
     } catch (error) {
-      console.error('Error fetching user:', error);
+      console.error('Erreur lors de la récupération de l\'utilisateur:', error);
       logout();
     } finally {
       setLoading(false);
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       return true;
     } catch (error) {
-      setError(error.response?.data?.error || 'An error occurred during login');
+      setError(error.response?.data?.error || 'Une erreur est survenue lors de la connexion');
       return false;
     }
   };
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
       });
       return true;
     } catch (error) {
-      setError(error.response?.data?.error || 'An error occurred during registration');
+      setError(error.response?.data?.error || 'Une erreur est survenue lors de l\'inscription');
       return false;
     }
   };
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
       return true;
     } catch (error) {
-      setError(error.response?.data?.error || 'An error occurred while updating profile');
+      setError(error.response?.data?.error || 'Une erreur est survenue lors de la mise à jour du profil');
       return false;
     }
   };
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
       });
       return true;
     } catch (error) {
-      setError(error.response?.data?.error || 'An error occurred while changing password');
+      setError(error.response?.data?.error || 'Une erreur est survenue lors du changement de mot de passe');
       return false;
     }
   };

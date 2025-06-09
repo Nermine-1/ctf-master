@@ -11,7 +11,7 @@ const Home = () => {
       <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
           <h1 className="mt-10 text-4xl font-bold tracking-tight text-cyan-400 sm:text-6xl">
-            CTF Platform for Wireless & IoT Security
+            Plateforme CTF pour la Sécurité Sans Fil & IoT
           </h1>
           <p className="mt-6 text-lg leading-8 text-white">
             Une plateforme gamifiée d'entraînement à la cybersécurité dans les réseaux sans fil et les objets connectés.
@@ -23,7 +23,7 @@ const Home = () => {
                 to="/challenges"
                 className="btn-primary"
               >
-                Commencer les challenges
+                Commencer les défis
               </Link>
             ) : (
               <>

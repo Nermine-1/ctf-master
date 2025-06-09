@@ -13,9 +13,9 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const navigation = [
-    { name: 'Home', href: '/', current: true },
-    { name: 'Challenges', href: '/challenges', current: false },
-    { name: 'Leaderboard', href: '/leaderboard', current: false },
+    { name: 'Accueil', href: '/', current: true },
+    { name: 'Défis', href: '/challenges', current: false },
+    { name: 'Classement', href: '/leaderboard', current: false },
   ];
 
   const handleLogout = () => {
@@ -32,7 +32,7 @@ const Navbar = () => {
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/" className="text-2xl font-bold text-green-400 glitch-text hover-glow">
-                    CTF Platform
+                    Plateforme CTF
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -82,7 +82,7 @@ const Navbar = () => {
                                 'block px-4 py-2 text-sm transition-colors duration-300'
                               )}
                             >
-                              Your Profile
+                              Votre Profil
                             </Link>
                           )}
                         </Menu.Item>
@@ -95,7 +95,7 @@ const Navbar = () => {
                                 'block px-4 py-2 text-sm transition-colors duration-300'
                               )}
                             >
-                              Create Team
+                              Créer une Équipe
                             </Link>
                           )}
                         </Menu.Item>
@@ -109,7 +109,7 @@ const Navbar = () => {
                                   'block px-4 py-2 text-sm transition-colors duration-300'
                                 )}
                               >
-                                Admin Dashboard
+                                Tableau de Bord Admin
                               </Link>
                             )}
                           </Menu.Item>
@@ -123,7 +123,7 @@ const Navbar = () => {
                                 'block w-full text-left px-4 py-2 text-sm transition-colors duration-300'
                               )}
                             >
-                              Sign out
+                              Se déconnecter
                             </button>
                           )}
                         </Menu.Item>
@@ -136,13 +136,13 @@ const Navbar = () => {
                       to="/login"
                       className="text-gray-400 hover:text-green-400 px-3 py-2 text-sm font-medium transition-colors duration-300"
                     >
-                      Sign in
+                      Se connecter
                     </Link>
                     <Link
                       to="/register"
                       className="btn-primary"
                     >
-                      Sign up
+                      S'inscrire
                     </Link>
                   </div>
                 )}
@@ -182,7 +182,7 @@ const Navbar = () => {
                 to="/teams/create"
                 className="block px-4 py-2 text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-green-400 transition-colors duration-300"
               >
-                Create Team
+                Créer une Équipe
               </Disclosure.Button>
             </div>
             {user ? (
@@ -204,7 +204,7 @@ const Navbar = () => {
                     to="/profile"
                     className="block px-4 py-2 text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-green-400 transition-colors duration-300"
                   >
-                    Your Profile
+                    Votre Profil
                   </Disclosure.Button>
                   {user.is_admin && (
                     <Disclosure.Button
@@ -212,7 +212,7 @@ const Navbar = () => {
                       to="/admin"
                       className="block px-4 py-2 text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-green-400 transition-colors duration-300"
                     >
-                      Admin Dashboard
+                      Tableau de Bord Admin
                     </Disclosure.Button>
                   )}
                   <Disclosure.Button
@@ -220,7 +220,7 @@ const Navbar = () => {
                     onClick={handleLogout}
                     className="block w-full text-left px-4 py-2 text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-green-400 transition-colors duration-300"
                   >
-                    Sign out
+                    Se déconnecter
                   </Disclosure.Button>
                 </div>
               </div>
@@ -232,14 +232,14 @@ const Navbar = () => {
                     to="/login"
                     className="block px-4 py-2 text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-green-400 transition-colors duration-300"
                   >
-                    Sign in
+                    Se connecter
                   </Disclosure.Button>
                   <Disclosure.Button
                     as={Link}
                     to="/register"
                     className="block px-4 py-2 text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-green-400 transition-colors duration-300"
                   >
-                    Sign up
+                    S'inscrire
                   </Disclosure.Button>
                 </div>
               </div>

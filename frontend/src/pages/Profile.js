@@ -12,6 +12,11 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+
+  const categories = ['Wireless', 'IoT', 'RF', 'Bluetooth', 'Zigbee', 'LoRa'];
+  const difficulties = ['Easy', 'Medium', 'Hard'];
 
   useEffect(() => {
     if (user) {
@@ -26,7 +31,7 @@ const Profile = () => {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/stats`);
       setStats(response.data);
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error('Erreur lors du chargement des statistiques:', error);
     } finally {
       setLoading(false);
     }
@@ -69,6 +74,21 @@ const Profile = () => {
     }
   };
 
+  const filteredStats = stats ? {
+    ...stats,
+    solved_by_category: selectedCategory 
+      ? { [selectedCategory]: stats.solved_by_category[selectedCategory] || 0 }
+      : stats.solved_by_category,
+    solved_by_difficulty: selectedDifficulty
+      ? { [selectedDifficulty]: stats.solved_by_difficulty[selectedDifficulty] || 0 }
+      : stats.solved_by_difficulty,
+    total_score: selectedCategory || selectedDifficulty
+      ? Object.entries(stats.solved_by_category)
+          .filter(([category]) => !selectedCategory || category === selectedCategory)
+          .reduce((sum, [_, count]) => sum + count, 0)
+      : stats.total_score
+  } : null;
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -95,7 +115,7 @@ const Profile = () => {
         {editMode ? (
           <form onSubmit={handleUpdateProfile} className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="username" className="block text-sm font-medium text-[#E9FF97]">
                 Nom d'utilisateur
               </label>
               <input
@@ -108,7 +128,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-[#E9FF97]">
                 Email
               </label>
               <input
@@ -143,11 +163,11 @@ const Profile = () => {
         ) : (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-[#E9FF97]">Nom d'utilisateur:</label>
+              <label className="block text-sm font-medium text-[#E9FF97]">Nom d'utilisateur</label>
               <p className="mt-1 text-white">{user.username}</p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#E9FF97]">Email:</label>
+              <label className="block text-sm font-medium text-[#E9FF97]">Email</label>
               <p className="mt-1 text-white">{user.email}</p>
             </div>
           </div>
@@ -155,11 +175,11 @@ const Profile = () => {
       </div>
 
       <div className="card">
-        <h2 className="text-xl font-semibold text-cyan-500 mb-6">Changer le mot de passe:</h2>
+        <h2 className="text-xl font-semibold text-cyan-500 mb-6">Changer le mot de passe</h2>
         <form onSubmit={handleChangePassword} className="space-y-4">
           <div>
             <label htmlFor="currentPassword" className="block text-sm font-medium text-[#E9FF97]">
-              Mot de passe actuel:
+              Mot de passe actuel
             </label>
             <input
               type="password"
@@ -211,21 +231,62 @@ const Profile = () => {
       {stats && (
         <div className="card">
           <h2 className="text-xl font-semibold text-cyan-500 mb-6">Statistiques</h2>
+          
+          <div className="mb-6 flex gap-4">
+            <div className="flex-1">
+              <label htmlFor="category" className="block text-sm font-medium text-[#E9FF97] mb-2">
+                Catégorie
+              </label>
+              <select
+                id="category"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="input-field w-full"
+              >
+                <option value="">Toutes les catégories</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="flex-1">
+              <label htmlFor="difficulty" className="block text-sm font-medium text-[#E9FF97] mb-2">
+                Difficulté
+              </label>
+              <select
+                id="difficulty"
+                value={selectedDifficulty}
+                onChange={(e) => setSelectedDifficulty(e.target.value)}
+                className="input-field w-full"
+              >
+                <option value="">Toutes les difficultés</option>
+                {difficulties.map((difficulty) => (
+                  <option key={difficulty} value={difficulty}>
+                    {difficulty}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-medium text-[#E9FF97] mb-4">Score total</h3>
-              <p className="text-3xl font-bold text-white">{stats.total_score} points</p>
+              <p className="text-3xl font-bold text-white">{filteredStats.total_score} points</p>
             </div>
             <div>
-              <h3 className="text-lg font-medium text-[#E9FF97] mb-4">Challenges résolus</h3>
-              <p className="text-3xl font-bold text-white">{stats.total_solved}</p>
+              <h3 className="text-lg font-medium text-[#E9FF97] mb-4">Défis résolus</h3>
+              <p className="text-3xl font-bold text-white">{filteredStats.total_solved}</p>
             </div>
           </div>
 
           <div className="mt-8">
             <h3 className="text-lg font-medium text-[#E9FF97] mb-4">Par catégorie</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.entries(stats.solved_by_category).map(([category, count]) => (
+              {Object.entries(filteredStats.solved_by_category).map(([category, count]) => (
                 <div key={category} className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-sm text-cyan">{category}</p>
                   <p className="text-xl font-semibold text-black">{count}</p>
@@ -237,7 +298,7 @@ const Profile = () => {
           <div className="mt-8">
             <h3 className="text-lg font-medium text-[#E9FF97] mb-4">Par difficulté</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {Object.entries(stats.solved_by_difficulty).map(([difficulty, count]) => (
+              {Object.entries(filteredStats.solved_by_difficulty).map(([difficulty, count]) => (
                 <div key={difficulty} className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-sm text-cyan">{difficulty}</p>
                   <p className="text-xl font-semibold text-black">{count}</p>
